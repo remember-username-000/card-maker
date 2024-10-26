@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CardMaker 2024 Lite</title>
+        <link rel="stylesheet" href="style.css">
+        <script defer src="script.js"></script>
+    </head>
+    <body>
+        <div id="card-render">
+            <canvas width="750" height="1050" id="canvas-renderer"></canvas>
+        </div>
+
+        <div id="edit-menu">
+            <button onclick="updateRender(); document.getElementById('canvas-renderer').style.border = 'none';" style="font-family: Bahnschrift;">Render<br>(｡•̀ᴗ-)✧</button>
+            <!--
+            <h1>Card Type</h1>
+                This card is a(n):
+                <form>
+                    <input type="radio" id="card-type-fighter" name="card-type">
+                    <label for="card-type-fighter">Fighter</label>
+                    <br>
+                    <input type="radio" id="card-type-item" name="card-type">
+                    <label for="card-type-item">Item</label>
+                </form>
+            -->
+
+            <h1>General</h1>
+                <form>
+                    <label for="name">Name</label> <br>
+                    <input type="text" id="name" value="lorem ipsum dolor sit amet, consectetur adipiscing elit"><br>
+                    
+                    <label for="img-main">Image (600x338 please!)</label> <br>
+                    <input type="file" id="img-main" onchange="updateImageCache();"><br>
+
+                    <!--
+                    <label for="background">Background:</label> <br>
+                    <select name="background" id="background">
+                        <option value="fire">Fire</option>
+                        <option value="water">Water</option>
+                        <option value="earth">Earth</option>
+                        <option value="air">Air</option>
+                        <option value="ice">Ice</option>
+                        <option value="plant">Plant</option>
+                        <option value="metal">Metal</option>
+                        <option value="force">Force</option>
+                        <option value="speed">Speed</option>
+                        <option value="electric">Electric</option>
+                        <option value="aether">Aether</option>
+                    </select>
+                    -->
+                    <div id="bg-path-div" style="display: none;">
+                        <label for="bg-path">bg-path</label> <br>
+                        <input type="text" id="bg-path" onchange="updateBgCache();">
+                    </div>
+                </form>
+
+            <h1>Fighter</h1>
+            <form>
+                <label for="prefix">Prefix</label> <br>
+                <input type="text" id="prefix"><br>
+
+                <label for="hp">HP</label> <br>
+                <input type="number" id="hp"><br>
+                
+                <label for="element">Type</label> <br>
+                <select name="element" id="element">
+                    <option value="fire">Fire</option>
+                    <option value="water">Water</option>
+                    <option value="earth">Earth</option>
+                    <option value="air">Air</option>
+                    <option value="ice">Ice</option>
+                    <option value="plant">Plant</option>
+                    <option value="metal">Metal</option>
+                    <option value="force">Force</option>
+                    <option value="speed">Speed</option>
+                    <option value="electric">Electric</option>
+                    <option value="aether">Aether</option>
+                    <option value="2fire">Double Fire</option>
+                    <option value="2water">Double Water</option>
+                    <option value="2earth">Double Earth</option>
+                    <option value="2air">Double Air</option>
+                </select>
+                <br>
+
+                Fighter is:
+                <br>
+                    <input type="radio" id="fighter-long" name="fighter-range" data-rendertext="RANGED">
+                    <label for="fighter-long">Ranged</label>
+                    <br>
+                    <input type="radio" id="fighter-short" name="fighter-range" data-rendertext="MELEE">
+                    <label for="fighter-short">Melee</label>
+                    <br>
+
+                <label for="weakness">Weakness:</label> <br>
+                <select name="weakness" id="weakness">
+                    <option value="fire">Fire</option>
+                    <option value="water">Water</option>
+                    <option value="earth">Earth</option>
+                    <option value="air">Air</option>
+                    <option value="ice">Ice</option>
+                    <option value="plant">Plant</option>
+                    <option value="metal">Metal</option>
+                    <option value="force">Force</option>
+                    <option value="speed">Speed</option>
+                    <option value="electric">Electric</option>
+                    <option value="aether">Aether</option>
+                </select>
+                <label for="weakness-mult">x</label>
+                <input type="number" id="weakness-mult"><br>
+
+                <label for="resistance">Resistance:</label> <br>
+                <select name="resistance" id="resistance">
+                    <option value="fire">Fire</option>
+                    <option value="water">Water</option>
+                    <option value="earth">Earth</option>
+                    <option value="air">Air</option>
+                    <option value="ice">Ice</option>
+                    <option value="plant">Plant</option>
+                    <option value="metal">Metal</option>
+                    <option value="force">Force</option>
+                    <option value="speed">Speed</option>
+                    <option value="electric">Electric</option>
+                    <option value="aether">Aether</option>
+                </select>
+                <label for="resistance-subtract">-</label>
+                <input type="number" id="resistance-subtract"><br>
+            </form>
+
+                <h2>Attack 1</h2>
+                <form>
+                    <label for="energy-cost-1">Energy Cost</label> <br>
+                    <input type="number" id="energy-cost-1"><br>
+
+                    <label for="name-1">Name</label> <br>
+                    <input type="text" id="name-1"><br>
+                    
+                    <label for="damage-1">Damage</label> <br>
+                    <input type="number" id="damage-1"><br>
+                    
+                    <label for="text-1">Text</label> <br>
+                    <input type="text" id="text-1"><br>
+                </form>
+
+                <h2>Attack 2</h2>
+                <form>
+                    <label for="energy-cost-2">Energy Cost</label> <br>
+                    <input type="number" id="energy-cost-2"><br>
+
+                    <label for="name-2">Name</label> <br>
+                    <input type="text" id="name-2"><br>
+                    
+                    <label for="damage-2">Damage</label> <br>
+                    <input type="number" id="damage-2"><br>
+                    
+                    <label for="text-2">Text</label> <br>
+                    <input type="text" id="text-2"><br>
+                </form>
+
+            <!--
+            <h1>Item</h1>
+            <form>
+                <label for="item-text">Text</label> <br>
+                <input type="text" id="item-text"><br>
+            </form>
+            -->
+
+            <h1>Detail</h1>
+            <form>
+                <label for="artist">Artist</label> <br>
+                <input type="text" id="artist"><br>
+
+                <label for="card-version">Card Version</label> <br>
+                <input type="number" id="card-version"><br>
+                
+                <label for="year">Year</label> <br>
+                <input type="number" id="year" value="2024"><br>
+
+                <label for="flavor-text">Flavor Text</label> <br>
+                <input type="text" id="flavor-text"><br>
+
+                Text color:
+                <br>
+                    <input type="radio" id="textcolor-black" name="textcolor" data-rendertext="BLACK">
+                    <label for="textcolor-black">Standard</label>
+                    <br>
+                    <input type="radio" id="textcolor-highcontrast" name="textcolor" data-rendertext="HIGHCONTRAST">
+                    <label for="textcolor-highcontrast">HC</label>
+                    <br>                
+            </form>
+        </div>
+
+        <div style="display: none;">
+            <img id="img-template" src="layers/template.png">
+            <img id="img-energy" src="symbols/energy.png">
+
+            <img id="img-2air" src="symbols/2air.png">
+            <img id="img-2earth" src="symbols/2earth.png">
+            <img id="img-2fire" src="symbols/2fire.png">
+            <img id="img-2water" src="symbols/2water.png">
+            <img id="img-aether" src="symbols/aether.png">
+            <img id="img-air" src="symbols/air.png">
+            <img id="img-earth" src="symbols/earth.png">
+            <img id="img-electric" src="symbols/electric.png">
+            <img id="img-fire" src="symbols/fire.png">
+            <img id="img-force" src="symbols/force.png">
+            <img id="img-ice" src="symbols/ice.png">
+            <img id="img-metal" src="symbols/metal.png">
+            <img id="img-plant" src="symbols/plant.png">
+            <img id="img-speed" src="symbols/speed.png">
+            <img id="img-water" src="symbols/water.png">
+
+            <img id="bg-aether" src="backgrounds/aether.png">
+            <img id="bg-air" src="backgrounds/air.png">
+            <img id="bg-earth" src="backgrounds/earth.png">
+            <img id="bg-electric" src="backgrounds/electric.png">
+            <img id="bg-fire" src="backgrounds/fire.png">
+            <img id="bg-force" src="backgrounds/force.png">
+            <img id="bg-ice" src="backgrounds/ice.png">
+            <img id="bg-metal" src="backgrounds/metal.png">
+            <img id="bg-plant" src="backgrounds/plant.png">
+            <img id="bg-speed" src="backgrounds/speed.png">
+            <img id="bg-water" src="backgrounds/water.png">
+                
+            <img id="client-file-holder" src="">
+            <img id="client-bg-holder" src="">
+        </div>
+        <p>enableBgPath();</p>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+@font-face {
+    font-family: Bahnschrift;
+    src: url("Bahnschrift.ttf") format(truetype) tech(variations);
+    font-weight: normal;
+}
+
+#card-render {
+    position: absolute;
+    right: 8px;
+    transform: scale(0.5);
+}
+
+canvas {
+    border: 1px solid #000000;
+}
